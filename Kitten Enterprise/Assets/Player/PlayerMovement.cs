@@ -7,9 +7,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed;
 
-    private Rigidbody playerRigidbody;
+    public static Rigidbody playerRigidbody;
 
-    private Plane movementPlane = new Plane(new Vector3(0, 1, 0), Vector3.zero);
+    public static Plane movementPlane = new Plane(new Vector3(0, 1, 0), Vector3.zero);
 
     private Vector3 forwardsVector, rightVector;
 
