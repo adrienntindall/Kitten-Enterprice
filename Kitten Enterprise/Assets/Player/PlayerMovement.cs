@@ -8,14 +8,24 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed;
 
     public static Rigidbody playerRigidbody;
+    
 
     public static Plane movementPlane = new Plane(new Vector3(0, 1, 0), Vector3.zero);
 
     private Vector3 forwardsVector, rightVector;
 
+    private Vector2 inputVector;
+
     private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
+    }
+
+    public void handleMovement()
+    {
+        Vector3 movementVector = inputVector.x * rightVector + inputVector.y * forwardsVector;
+
+        playerRigidbody.AddForce(movementVector * movementSpeed, ForceMode.VelocityChange);
     }
 
     //setting up movement so we don't have to compute this literally every frame
@@ -26,15 +36,14 @@ public class PlayerMovement : MonoBehaviour
         rightVector = -Vector3.Cross(forwardsVector, movementPlane.normal);
     }
 
+    public void resetMovement()
+    {
+        playerRigidbody.AddForce(-playerRigidbody.velocity, ForceMode.VelocityChange);
+    }
+
     public void OnMove(InputValue input)
     {
         startMovement();
-
-        Vector2 inputVector = input.Get<Vector2>();
-        Vector3 movementVector = inputVector.x * rightVector + inputVector.y * forwardsVector;
-       
-        playerRigidbody.AddForce(-playerRigidbody.velocity, ForceMode.VelocityChange);
-        
-        playerRigidbody.AddForce(movementVector * movementSpeed, ForceMode.VelocityChange);
+        inputVector = input.Get<Vector2>();
     }
 }

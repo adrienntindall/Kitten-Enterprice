@@ -51,11 +51,6 @@ public class BigInputHandler : MonoBehaviour
         movementPlane.Raycast(mouseRay, out dist);
 
         grabbedObject.AddForce(dragSpeed * (mouseRay.GetPoint(dist) - movementPlane.ClosestPointOnPlane(grabbedObject.transform.position)), ForceMode.VelocityChange);
-
-
-        Debug.Log(mouseRay.GetPoint(dist));
-        Debug.Log(movementPlane.ClosestPointOnPlane(grabbedObject.transform.position));
-        Debug.Log("/n");
     }
 
 }
