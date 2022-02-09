@@ -8,13 +8,18 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed;
 
     public static Rigidbody playerRigidbody;
-    
+
+    private float initialAcceleration = 10;
+    private float initialSpeed = 3;
 
     public static Plane movementPlane = new Plane(new Vector3(0, 1, 0), Vector3.zero);
 
     private Vector3 forwardsVector, rightVector;
 
     private Vector2 inputVector;
+
+    private bool isMoving = false;
+    private float t = 0;
 
     private void Awake()
     {
@@ -23,12 +28,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void handleMovement()
     {
+        float speed = initialSpeed + initialAcceleration * t;
+
+        speed = Mathf.Min(movementSpeed, speed);
+
         Vector3 movementVector = inputVector.x * rightVector + inputVector.y * forwardsVector;
 
-        playerRigidbody.AddForce(movementVector * movementSpeed, ForceMode.VelocityChange);
+        playerRigidbody.AddForce(movementVector * speed, ForceMode.VelocityChange);
+
+        Debug.Log(rightVector);
+        Debug.Log(forwardsVector);
+
+        t += Time.fixedDeltaTime;
     }
 
-    //setting up movement so we don't have to compute this literally every frame
+
     public void startMovement()
     {
         forwardsVector = Camera.main.transform.forward;
@@ -45,5 +59,16 @@ public class PlayerMovement : MonoBehaviour
     {
         startMovement();
         inputVector = input.Get<Vector2>();
+        bool temp = isMoving;
+        isMoving = !inputVector.Equals(Vector2.zero);
+        if(!temp && isMoving)
+        {
+            t = 0;
+        }
+    }
+
+    public static void setMovementPlane(Vector3 normal)
+    {
+        movementPlane = new Plane(normal, Vector3.zero);
     }
 }
