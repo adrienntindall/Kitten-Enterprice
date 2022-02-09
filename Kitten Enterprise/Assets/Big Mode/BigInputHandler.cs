@@ -40,7 +40,6 @@ public class BigInputHandler : MonoBehaviour
             if (hit.collider.tag != "Moveable") return;
             grabbedObject = hit.collider.attachedRigidbody;
             grabbedObject.constraints = RigidbodyConstraints.FreezeRotation;
-            //movementPlane = new Plane(Camera.main.transform.forward, grabbedObject.transform.position);
         }
         if (grabbedObject == null) return;
 
