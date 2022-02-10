@@ -60,6 +60,7 @@
     <Compile Include="Assets\Player\CameraController.cs" />
     <Compile Include="Assets\Player\PlayerJump.cs" />
     <Compile Include="Assets\Player\PlayerController.cs" />
+    <Compile Include="Assets\Big Mode\BigModeSwapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

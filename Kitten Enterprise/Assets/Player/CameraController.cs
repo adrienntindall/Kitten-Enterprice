@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
 {
     public GameObject targetObject;
 
+
     public float panSpeed = 1f;
     public float rotateSpeed = 1f;
 
@@ -21,10 +22,12 @@ public class CameraController : MonoBehaviour
 
     public void OnPanCamera(InputValue input)
     {
-        mouseDelta = input.Get<Vector2>();
-        if (mouseDelta.magnitude > 50) mouseDelta = Vector2.zero;
-        if (invertYAxis) mouseDelta.y *= -1;
-        Debug.Log(mouseDelta);
+        if (!PlayerController.isBig)
+        {
+            mouseDelta = input.Get<Vector2>();
+            if (mouseDelta.magnitude > 50) mouseDelta = Vector2.zero;
+            if (invertYAxis) mouseDelta.y *= -1;
+        }
     }
 
     private void Update()

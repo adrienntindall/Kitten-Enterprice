@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static bool isBig = false;
+
     public static Collider playerCollider;
+    
+    public static BigModeSwapper currentSwapper;
 
     private PlayerMovement playerMovement;
     private PlayerJump playerJump;
@@ -19,8 +23,18 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         playerMovement.resetMovement();
-        playerMovement.handleMovement();
-        playerJump.handleJump();
+        if (!isBig)
+        {
+            playerMovement.handleMovement();
+            playerJump.handleJump();
+        }
     }
 
+    public void OnExitBigMode()
+    {
+        if(isBig)
+        {
+            currentSwapper.exitBigMode();
+        }
+    }
 }

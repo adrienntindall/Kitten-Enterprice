@@ -17,12 +17,14 @@ public class BigInputHandler : MonoBehaviour
 
     private void Update()
     {
+        if (!PlayerController.isBig) return;
         mouseRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         mouseDown = Mouse.current.leftButton.IsPressed();
     }
 
     private void FixedUpdate()
     {
+        if (!PlayerController.isBig) return;
         RaycastHit hit;
         if (!mouseDown)
         {
