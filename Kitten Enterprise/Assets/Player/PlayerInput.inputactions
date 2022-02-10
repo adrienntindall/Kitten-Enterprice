@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "Press(pressPoint=1.401298E-45,behavior=2)",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Pan Camera",
+                    "type": "PassThrough",
+                    "id": "2b5e7b87-4bec-460e-ace3-18715d80e866",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -207,6 +216,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "017cf73b-ef09-4001-b552-b84762877c29",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pan Camera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

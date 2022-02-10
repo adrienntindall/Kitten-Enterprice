@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
 
     public static Rigidbody playerRigidbody;
 
+    public GameObject playerModel;
+
     private float initialAcceleration = 10;
     private float initialSpeed = 3;
 
@@ -34,10 +36,9 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 movementVector = inputVector.x * rightVector + inputVector.y * forwardsVector;
 
-        playerRigidbody.AddForce(movementVector * speed, ForceMode.VelocityChange);
+        playerModel.transform.rotation = Quaternion.LookRotation(movementVector.normalized, movementPlane.normal) * Quaternion.AngleAxis(90, Vector3.right);
 
-        Debug.Log(rightVector);
-        Debug.Log(forwardsVector);
+        playerRigidbody.AddForce(movementVector * speed, ForceMode.VelocityChange);
 
         t += Time.fixedDeltaTime;
     }
