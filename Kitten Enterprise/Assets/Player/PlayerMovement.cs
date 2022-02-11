@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 inputVector;
 
+    private Quaternion prevRotation = Quaternion.AngleAxis(90, Vector3.right);
+
     private bool isMoving = false;
     private float t = 0;
 
@@ -30,13 +32,22 @@ public class PlayerMovement : MonoBehaviour
 
     public void handleMovement()
     {
+        if (inputVector.Equals(Vector2.zero)) return;
+
+        startMovement();
+
         float speed = initialSpeed + initialAcceleration * t;
 
         speed = Mathf.Min(movementSpeed, speed);
 
         Vector3 movementVector = inputVector.x * rightVector + inputVector.y * forwardsVector;
 
-        playerModel.transform.rotation = Quaternion.LookRotation(movementVector.normalized, movementPlane.normal) * Quaternion.AngleAxis(90, Vector3.right);
+        if(inputVector.x != 0 || inputVector.y != 0)
+        {
+            prevRotation = Quaternion.LookRotation(movementVector.normalized, movementPlane.normal) * Quaternion.AngleAxis(90, Vector3.right);
+        }
+
+        playerModel.transform.rotation = prevRotation;
 
         playerRigidbody.AddForce(movementVector * speed, ForceMode.VelocityChange);
 
@@ -46,9 +57,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void startMovement()
     {
-        forwardsVector = Camera.main.transform.forward;
+        forwardsVector = Quaternion.FromToRotation(Vector3.up, movementPlane.normal)*Camera.main.transform.forward;
         forwardsVector = movementPlane.ClosestPointOnPlane(forwardsVector).normalized;
         rightVector = -Vector3.Cross(forwardsVector, movementPlane.normal);
+
+        Debug.Log("New Vectors:");
+        Debug.Log(Camera.main.transform.forward);
     }
 
     public void resetMovement()
@@ -58,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputValue input)
     {
-        startMovement();
         inputVector = input.Get<Vector2>();
         bool temp = isMoving;
         isMoving = !inputVector.Equals(Vector2.zero);
