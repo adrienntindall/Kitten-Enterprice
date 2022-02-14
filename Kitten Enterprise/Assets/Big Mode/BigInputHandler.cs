@@ -11,7 +11,7 @@ public class BigInputHandler : MonoBehaviour
     private bool mouseDown = false;
 
     private Rigidbody grabbedObject = null;
-    private Vector3 grabDelta;
+    private Collider grabbedCollider = null;
     private Plane movementPlane;
 
 
@@ -41,6 +41,7 @@ public class BigInputHandler : MonoBehaviour
         {
             if (hit.collider.tag != "Moveable") return;
             grabbedObject = hit.collider.attachedRigidbody;
+            grabbedCollider = hit.collider;
             grabbedObject.constraints = RigidbodyConstraints.FreezeRotation;
             movementPlane = grabbedObject.GetComponent<MoveableObject>().getMovementPlane();
         }
@@ -52,6 +53,37 @@ public class BigInputHandler : MonoBehaviour
 
         movementPlane.Raycast(mouseRay, out dist);
 
-        grabbedObject.AddForce(dragSpeed * (mouseRay.GetPoint(dist) - movementPlane.ClosestPointOnPlane(grabbedObject.transform.position)), ForceMode.VelocityChange);
+        Vector3 movementVector = (mouseRay.GetPoint(dist) - movementPlane.ClosestPointOnPlane(grabbedObject.transform.position));
+
+        Vector3 closePoint = transform.position;
+
+        if(grabbedCollider.Raycast(new Ray(grabbedCollider.transform.position + movementVector.normalized*99, -movementVector), out hit, Mathf.Infinity))
+        {
+            closePoint = hit.point;
+        }
+
+        float colliderRadius = (grabbedCollider.transform.position - closePoint).magnitude;
+
+        int trueLayer = grabbedObject.gameObject.layer;
+
+        grabbedObject.gameObject.layer = 2; //Ignore Raycast Layer
+
+        if (Physics.Raycast(new Ray(grabbedCollider.transform.position, movementVector), out hit, colliderRadius + (dragSpeed + 2) * Time.fixedDeltaTime))
+        {
+            float trueDist = hit.distance - colliderRadius;
+            if (dragSpeed*movementVector.magnitude >= trueDist)
+            { 
+                movementVector *= trueDist / movementVector.magnitude;
+                movementVector /= dragSpeed * Time.fixedDeltaTime;
+            }
+            if(trueDist <= 0.1f)
+            {
+                movementVector *= 0;
+            }
+        }
+
+        grabbedObject.gameObject.layer = trueLayer;
+
+        grabbedObject.AddForce(dragSpeed * movementVector, ForceMode.VelocityChange);
     }
 }

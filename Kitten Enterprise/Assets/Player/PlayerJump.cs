@@ -17,14 +17,28 @@ public class PlayerJump : MonoBehaviour
     public float terminalVelocity = 1f;
     private Vector3 prevGravitationalVelocity;
 
+    /////CLOUD_EFFECT
+    /////Public variables of particle prefabs
+    public GameObject jumpParticle;
+    public GameObject hitGroundParticle;
+    /////////////////////////////////////////////////////////////////////////////////////
+
     public void handleJump()
     {
         if ((t < jumpMaxHold) && isJumpButtonHeld)
         {
             prevGravitationalVelocity = jumpForce * PlayerMovement.movementPlane.normal;
+            /////CLOUD_EFFECT
+            /////this calls the SpawnStartJumpParticle method when the character starts jumping
+            if (isJumping == false)
+            {
+                SpawnStartJumpParticle();
+            }
+            /////////////////////////////////////////////////////////////////////////////////////
             isJumping = true;
+
         }
-        
+
         prevGravitationalVelocity += -gravity * PlayerMovement.movementPlane.normal * Time.fixedDeltaTime;
 
         bool downwards = (-Vector3.Dot(PlayerMovement.movementPlane.normal, prevGravitationalVelocity) > 0);
@@ -35,7 +49,7 @@ public class PlayerJump : MonoBehaviour
 
         float colliderRadius = PlayerController.playerCollider.bounds.extents.y;
 
-        if (downwards && Physics.Raycast(new Ray(PlayerController.playerCollider.transform.position, prevGravitationalVelocity), out hit, colliderRadius + terminalVelocity*Time.fixedDeltaTime))
+        if (downwards && Physics.Raycast(new Ray(PlayerController.playerCollider.transform.position, prevGravitationalVelocity), out hit, colliderRadius + terminalVelocity * Time.fixedDeltaTime))
         {
             float trueDist = hit.distance - colliderRadius;
             if (prevGravitationalVelocity.magnitude >= trueDist)
@@ -43,8 +57,16 @@ public class PlayerJump : MonoBehaviour
                 prevGravitationalVelocity *= trueDist / prevGravitationalVelocity.magnitude;
                 prevGravitationalVelocity /= Time.fixedDeltaTime;
             }
-            if(trueDist <= 0.05f)
+            if (trueDist <= 0.05f)
             {
+                /////CLOUD_EFFECT
+                /////this calls the SpawnStartJumpParticle method when the character hits the ground
+                ///// or stops being in the state of jumping
+                if (isJumping == true)
+                {
+                    SpawnHitGroundParticle();
+                }
+                /////////////////////////////////////////////////////////////////////////////////////
                 isJumping = false;
                 t = 0;
             }
@@ -60,4 +82,23 @@ public class PlayerJump : MonoBehaviour
     {
         isJumpButtonHeld = !isJumpButtonHeld;
     }
+
+
+    /////CLOUD_EFFECT
+    /////Methods for spawing particles
+
+    private void SpawnStartJumpParticle()
+    {
+        GameObject particleInstance = GameObject.Instantiate(jumpParticle, transform.position, Quaternion.identity);
+        particleInstance.SetActive(true);
+        particleInstance.transform.SetParent(this.transform);
+    }
+
+    private void SpawnHitGroundParticle()
+    {
+        GameObject particleInstance = GameObject.Instantiate(hitGroundParticle, transform.position, transform.rotation);
+        particleInstance.SetActive(true);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
 }

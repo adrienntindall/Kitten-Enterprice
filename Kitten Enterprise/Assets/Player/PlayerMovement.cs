@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(inputVector.x != 0 || inputVector.y != 0)
         {
-            prevRotation = Quaternion.LookRotation(movementVector.normalized, movementPlane.normal) * Quaternion.AngleAxis(90, Vector3.right);
+            prevRotation = Quaternion.LookRotation(movementVector.normalized, movementPlane.normal);
         }
 
         playerModel.transform.rotation = prevRotation;
