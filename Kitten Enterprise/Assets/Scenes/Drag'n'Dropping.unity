@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normal: {x: 0, y: 0, z: 1}
+  objectRigidbody: {fileID: 0}
 --- !u!1 &359514356 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7a3f733cca2e647488d4e0b19704c626, type: 3}
@@ -824,7 +825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6087269814171865156, guid: a4ac02733aba85e4f86a9eaf3f1838e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.45
       objectReference: {fileID: 0}
     - target: {fileID: 6087269814171865156, guid: a4ac02733aba85e4f86a9eaf3f1838e1, type: 3}
       propertyPath: m_LocalPosition.z

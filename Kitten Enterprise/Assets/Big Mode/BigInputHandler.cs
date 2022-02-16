@@ -7,13 +7,13 @@ public class BigInputHandler : MonoBehaviour
 {
     public float dragSpeed;
 
+    private Laser currentLaser;
     private Ray mouseRay;
-    private bool mouseDown = false;
+    public static bool mouseDown = false;
 
-    private Rigidbody grabbedObject = null;
+    public static Rigidbody grabbedObject = null;
     private Collider grabbedCollider = null;
     private Plane movementPlane;
-
 
     private void Update()
     {
@@ -31,6 +31,7 @@ public class BigInputHandler : MonoBehaviour
             if(grabbedObject != null)
             {
                 grabbedObject.constraints = RigidbodyConstraints.FreezeAll;
+                grabbedObject.collisionDetectionMode = CollisionDetectionMode.Continuous;
                 grabbedObject = null;
                 
             }
@@ -44,6 +45,7 @@ public class BigInputHandler : MonoBehaviour
             grabbedCollider = hit.collider;
             grabbedObject.constraints = RigidbodyConstraints.FreezeRotation;
             movementPlane = grabbedObject.GetComponent<MoveableObject>().getMovementPlane();
+            grabbedObject.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         }
         if (grabbedObject == null) return;
 
@@ -57,7 +59,7 @@ public class BigInputHandler : MonoBehaviour
 
         Vector3 closePoint = transform.position;
 
-        if(grabbedCollider.Raycast(new Ray(grabbedCollider.transform.position + movementVector.normalized*99, -movementVector), out hit, Mathf.Infinity))
+        if(!movementVector.Equals(Vector3.zero) && grabbedCollider.Raycast(new Ray(grabbedCollider.transform.position + movementVector.normalized*99, -movementVector), out hit, Mathf.Infinity))
         {
             closePoint = hit.point;
         }
@@ -74,7 +76,8 @@ public class BigInputHandler : MonoBehaviour
             if (dragSpeed*movementVector.magnitude >= trueDist)
             { 
                 movementVector *= trueDist / movementVector.magnitude;
-                movementVector /= dragSpeed * Time.fixedDeltaTime;
+                movementVector /= dragSpeed;
+                movementVector /= Time.fixedDeltaTime;
             }
             if(trueDist <= 0.1f)
             {
@@ -85,5 +88,10 @@ public class BigInputHandler : MonoBehaviour
         grabbedObject.gameObject.layer = trueLayer;
 
         grabbedObject.AddForce(dragSpeed * movementVector, ForceMode.VelocityChange);
+    }
+
+    public void setCurrentLaser(Laser l)
+    {
+        currentLaser = l;
     }
 }

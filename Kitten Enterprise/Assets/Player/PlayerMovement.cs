@@ -60,9 +60,6 @@ public class PlayerMovement : MonoBehaviour
         forwardsVector = Quaternion.FromToRotation(Vector3.up, movementPlane.normal)*Camera.main.transform.forward;
         forwardsVector = movementPlane.ClosestPointOnPlane(forwardsVector).normalized;
         rightVector = -Vector3.Cross(forwardsVector, movementPlane.normal);
-
-        Debug.Log("New Vectors:");
-        Debug.Log(Camera.main.transform.forward);
     }
 
     public void resetMovement()
