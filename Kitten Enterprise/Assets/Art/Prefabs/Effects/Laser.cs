@@ -42,7 +42,6 @@ public class Laser : MonoBehaviour
         else if(BigInputHandler.mouseDown && lineRenderer.enabled)
         {
             UpdateLaser();
-            Debug.Log("Updating laser!");
         }
     }
 
@@ -55,6 +54,7 @@ public class Laser : MonoBehaviour
     //though it's okay to not do it when the laser is not enabled
     public void UpdateLaser()
     {
+        SetFinalPosition(BigInputHandler.grabbedObject.transform.position);
         lineRenderer.SetPosition(0, firePoint.position);
         lineRenderer.SetPosition(1, finalPosition);
     }
