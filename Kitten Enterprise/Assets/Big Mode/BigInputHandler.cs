@@ -14,6 +14,12 @@ public class BigInputHandler : MonoBehaviour
     public static Rigidbody grabbedObject = null;
     private Collider grabbedCollider = null;
     private Plane movementPlane;
+    private MoveableObject[] allMoveables;
+
+    private void Awake()
+    {
+        allMoveables = FindObjectsOfType<MoveableObject>();
+    }
 
     private void Update()
     {
@@ -32,6 +38,10 @@ public class BigInputHandler : MonoBehaviour
             {
                 grabbedObject.constraints = RigidbodyConstraints.FreezeAll;
                 grabbedObject.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                foreach(MoveableObject obj in allMoveables)
+                {
+                    obj.objectRigidbody.isKinematic = false;
+                }
                 grabbedObject = null;
                 
             }
@@ -41,8 +51,13 @@ public class BigInputHandler : MonoBehaviour
         if ((grabbedObject == null) && Physics.Raycast(mouseRay, out hit))
         {
             if (hit.collider.tag != "Moveable") return;
+            foreach (MoveableObject obj in allMoveables)
+            {
+                obj.objectRigidbody.isKinematic = true;
+            }            
             grabbedObject = hit.collider.attachedRigidbody;
             grabbedCollider = hit.collider;
+            grabbedObject.isKinematic = false;
             grabbedObject.constraints = RigidbodyConstraints.FreezeRotation;
             movementPlane = grabbedObject.GetComponent<MoveableObject>().getMovementPlane();
             grabbedObject.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
