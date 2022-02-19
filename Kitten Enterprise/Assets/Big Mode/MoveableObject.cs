@@ -7,6 +7,7 @@ public class MoveableObject : MonoBehaviour
     public Vector3 normal = new Vector3(0, 1, 0);
 
     public Rigidbody objectRigidbody;
+    public bool isRotational = false;
 
     private Plane movementPlane;
 
