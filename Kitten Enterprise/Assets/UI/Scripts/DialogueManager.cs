@@ -46,14 +46,20 @@ public class DialogueManager : MonoBehaviour
         {
             if(dialogue.GetMessageCount() <= currentMessage)
             {
-                EndDialogue();
-                return;
+                if(!box.HasFinished)
+                {
+                    box.EndCurrent();
+                }
+                else 
+                {
+                    EndDialogue();
+                }
             }
             else if(box.HasFinished)
             {
                 box.SetMessage(dialogue.GetMessage(currentMessage++));
             }
-            else
+            else 
             {
                 box.EndCurrent();
             }

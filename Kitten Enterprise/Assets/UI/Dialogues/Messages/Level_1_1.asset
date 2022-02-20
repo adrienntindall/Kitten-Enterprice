@@ -18,7 +18,7 @@ MonoBehaviour:
     type: 0
   - TalkerName: Cat
     DialogueText: "When was my battery last charged\u2026 I feel rusty\u2026"
-    type: 1
+    type: 0
   - TalkerName: Cat
     DialogueText: Stands up.
     type: 1
