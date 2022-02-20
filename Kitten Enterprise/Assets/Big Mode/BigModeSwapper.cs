@@ -16,6 +16,7 @@ public class BigModeSwapper : MonoBehaviour
 
     private void enterBigMode()
     {
+        PlayerController.playerController.movementSound.Stop();
         targetCamera.Priority = 11;
         PlayerController.isBig = true;
         Cursor.lockState = CursorLockMode.None;

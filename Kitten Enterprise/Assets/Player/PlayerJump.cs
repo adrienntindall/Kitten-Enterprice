@@ -35,8 +35,8 @@ public class PlayerJump : MonoBehaviour
                 SpawnStartJumpParticle();
             }
             /////////////////////////////////////////////////////////////////////////////////////
+            PlayerController.playerController.movementSound.Stop();
             isJumping = true;
-
         }
 
         prevGravitationalVelocity += -gravity * PlayerMovement.movementPlane.normal * Time.fixedDeltaTime;

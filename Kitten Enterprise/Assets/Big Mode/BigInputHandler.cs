@@ -7,6 +7,8 @@ public class BigInputHandler : MonoBehaviour
 {
     public float dragSpeed;
 
+    public AudioSource laserSFX;
+
     private bool isRotational = false;
 
     private Laser currentLaser;
@@ -52,7 +54,7 @@ public class BigInputHandler : MonoBehaviour
                 grabbedObject = null;
                 
             }
-            
+            laserSFX.Stop();
             return;
         }
         if ((grabbedObject == null) && Physics.Raycast(mouseRay, out hit))
@@ -77,6 +79,9 @@ public class BigInputHandler : MonoBehaviour
         }
         if (grabbedObject == null) return;
 
+        
+        if (!laserSFX.isPlaying) laserSFX.Play();
+
         grabbedObject.AddForce(-grabbedObject.velocity, ForceMode.VelocityChange);
         grabbedObject.angularVelocity = Vector3.zero;
 
@@ -95,12 +100,6 @@ public class BigInputHandler : MonoBehaviour
             Vector3 angularDisplacement = movementPlane.normal * angle;
 
             grabbedObject.angularVelocity = angularDisplacement / Time.fixedDeltaTime;
-
-            
-
-            //grabbedObject.angularVelocity = Quaternion.AngleAxis(Vector3.Angle(grabbedObject.rotation * rightVector, movementVector), movementPlane.normal).eulerAngles;
-
-            //grabbedObject.angularVelocity = dragSpeed * movementPlane.normal;
         }
         else
         {

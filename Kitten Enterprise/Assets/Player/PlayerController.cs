@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController playerController;
+
+    //Audio Sources
+    public AudioSource movementSound;
+
     public static bool isBig = false;
 
     public static Collider playerCollider;
@@ -15,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        playerController = this;
         playerCollider = GetComponent<Collider>();
         playerMovement = GetComponent<PlayerMovement>();
         playerJump = GetComponent<PlayerJump>();

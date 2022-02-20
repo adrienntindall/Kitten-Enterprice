@@ -32,7 +32,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void handleMovement()
     {
-        if (inputVector.Equals(Vector2.zero)) return;
+        if (inputVector.Equals(Vector2.zero))
+        {
+            PlayerController.playerController.movementSound.Stop();
+            return;
+        }
+
+        if(!PlayerJump.isJumping && !PlayerController.playerController.movementSound.isPlaying) PlayerController.playerController.movementSound.Play();
 
         startMovement();
 
