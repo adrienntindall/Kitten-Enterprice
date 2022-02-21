@@ -10553,6 +10553,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1855179327638050805, guid: e0f70429916f2e64982cc35c4d355ce0, type: 3}
+      propertyPath: nextScene
+      value: Defining Gravity
+      objectReference: {fileID: 0}
     - target: {fileID: 4638751085239025363, guid: e0f70429916f2e64982cc35c4d355ce0, type: 3}
       propertyPath: m_RootOrder
       value: 1
