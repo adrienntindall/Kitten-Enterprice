@@ -8,6 +8,8 @@ public class BigModeSwapper : MonoBehaviour
     public CinemachineVirtualCamera targetCamera;
     public GameObject catBig;
 
+    public GameObject[] disableList;
+
     private Animator catBigAnimator;
 
     private void Awake()
@@ -22,6 +24,11 @@ public class BigModeSwapper : MonoBehaviour
         catBigAnimator.SetTrigger("Shrink");
 
         yield return new WaitForSeconds(catBigAnimator.GetCurrentAnimatorStateInfo(0).length);
+
+        foreach (GameObject obj in disableList)
+        {
+            obj.SetActive(true);
+        }
 
         catBig.SetActive(false);
 
@@ -42,6 +49,11 @@ public class BigModeSwapper : MonoBehaviour
         catBigAnimator.SetTrigger("GrowBig");
 
         yield return new WaitForSeconds(catBigAnimator.GetCurrentAnimatorStateInfo(0).length);
+
+        foreach(GameObject obj in disableList)
+        {
+            obj.SetActive(false);
+        }
 
         PlayerController.isBig = true;
         PlayerController.playerController.endDialogue();
