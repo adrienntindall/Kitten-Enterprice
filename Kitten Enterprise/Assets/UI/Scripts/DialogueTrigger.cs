@@ -1,17 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class DialogueTrigger : MonoBehaviour
 {
     [SerializeField] private Dialogue dialogueToTrigger;
     private bool hasTriggerd = false;
 
+    public CinemachineVirtualCamera camera = null;
+    public BadPath movemntToTrigger;
+
     public void OnTriggerEnter(Collider other) 
     {
-        if(other.tag == "Player")
+        if(other.tag == "Player" && !hasTriggerd)
         {
-            DialogueManager.Instacne.TriggerDialogue(dialogueToTrigger);
+            DialogueManager.Instacne.TriggerDialogue(dialogueToTrigger, camera);
+            hasTriggerd = true;
+
+            if(movemntToTrigger != null)
+            {
+                movemntToTrigger.StartMove();
+            }
         }
     }
 }

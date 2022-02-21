@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Dialogue dialogue;
     private int currentMessage = 0;
 
+    private CinemachineVirtualCamera currentCam;
     private void Awake() 
     {
         if(!Instacne)
@@ -23,12 +25,14 @@ public class DialogueManager : MonoBehaviour
     }
     private void Start()
     {
-        StartDialogue();
+        if(dialogue != null)
+            StartDialogue();
     }
 
     private void StartDialogue()
     {
         //disable player input;
+        PlayerController.playerController.startDialogue();
         
         box.gameObject.SetActive(true);
         box.SetMessage(dialogue.GetMessage(currentMessage++));
@@ -38,11 +42,17 @@ public class DialogueManager : MonoBehaviour
     {
         box.gameObject.SetActive(false);
 
-        //enable player input;
+        PlayerController.playerController.endDialogue();
+
+        if(currentCam != null)
+        {
+            currentCam.Priority = 1;
+            currentCam = null;
+        }
     }
     private void Update() 
     {
-        if(Keyboard.current[Key.Space].wasPressedThisFrame)
+        if(Keyboard.current[Key.Space].wasPressedThisFrame || Mouse.current.leftButton.wasPressedThisFrame)
         {
             if(dialogue.GetMessageCount() <= currentMessage)
             {
@@ -66,11 +76,20 @@ public class DialogueManager : MonoBehaviour
         }   
     }
 
-    public void TriggerDialogue(Dialogue dial)
+    public void TriggerDialogue(Dialogue dial, CinemachineVirtualCamera cam = null)
     {
         currentMessage = 0;
         dialogue = dial;
 
+        if(cam != null)
+            TriggerCamera(cam);
+
         StartDialogue();
+    }
+
+    public void TriggerCamera(CinemachineVirtualCamera cam)
+    {
+        currentCam = cam;
+        currentCam.Priority = 20;
     }
 }

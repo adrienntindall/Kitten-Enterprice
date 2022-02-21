@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31790813e78fd584fa3cbd5102c186d6, type: 3}
-  m_Name: Level_2_2
+  m_Name: Level_1_4
   m_EditorClassIdentifier: 
   messages:
-  - TalkerName: Cat
-    DialogueText: "There\u2019s no point in running away now, is there? HAHAHAHAHA"
+  - TalkerName: Mouse
+    DialogueText: Now try using your eye beams (left click) to move that brawn box!
     type: 0

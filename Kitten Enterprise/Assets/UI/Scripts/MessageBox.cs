@@ -36,11 +36,11 @@ public class MessageBox : MonoBehaviour
         if(message.type == MessageType.CharacterDialogue)
         {
             NameText.text = message.TalkerName;
-            NameText.gameObject.SetActive(true);
+            NameText.transform.parent.gameObject.SetActive(true);
         }
         else
         {
-            NameText.gameObject.SetActive(false);
+            NameText.transform.parent.gameObject.SetActive(false);
         }
             
         

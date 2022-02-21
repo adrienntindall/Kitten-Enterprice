@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31790813e78fd584fa3cbd5102c186d6, type: 3}
-  m_Name: Level_1_2
+  m_Name: Level_1_3
   m_EditorClassIdentifier: 
   messages:
   - TalkerName: Cat
-    DialogueText: Ooh, a snack!
+    DialogueText: Oh, what does this switch do?
+    type: 0
+  - TalkerName: Mouse
+    DialogueText: Click it and find out!
     type: 0
