@@ -7,5 +7,14 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
-    guid: 83c47c92211cd8545a30a2c2e1724803
+    guid: 71fdeeaa1cd7647458eca1280bdc7cfa
+  - enabled: 1
+    path: Assets/Scenes/Drag'n'Dropping.unity
+    guid: 1df342cec8301284193d32260daf3000
+  - enabled: 1
+    path: Assets/Scenes/Defining Gravity.unity
+    guid: 89899584bef98f74ea592801336531fc
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 7021973fa466ac34f91f4beaa99299f3
   m_configObjects: {}
