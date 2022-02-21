@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerMovement playerMovement;
     private PlayerJump playerJump;
+    private bool isInDialogue = false;
 
     private void Awake()
     {
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         playerMovement.resetMovement();
-        if (!isBig)
+        if (!isBig && !isInDialogue)
         {
             playerMovement.handleMovement();
             playerJump.handleJump();
@@ -42,5 +43,15 @@ public class PlayerController : MonoBehaviour
         {
             currentSwapper.exitBigMode();
         }
+    }
+
+    public void startDialogue()
+    {
+        isInDialogue = true;
+    }
+
+    public void endDialogue()
+    {
+        isInDialogue = false;
     }
 }
