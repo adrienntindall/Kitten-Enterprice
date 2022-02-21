@@ -11,6 +11,8 @@ public class DialogueTrigger : MonoBehaviour
     public CinemachineVirtualCamera camera = null;
     public BadPath movemntToTrigger;
 
+    public bool isFinal = false;
+
     public void OnTriggerEnter(Collider other) 
     {
         if(other.tag == "Player" && !hasTriggerd)
@@ -21,6 +23,11 @@ public class DialogueTrigger : MonoBehaviour
             if(movemntToTrigger != null)
             {
                 movemntToTrigger.StartMove();
+            }
+
+            if(isFinal)
+            {
+                DialogueManager.Instacne.isFinalDialogue = true;
             }
         }
     }

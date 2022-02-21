@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private MessageBox box;
     [SerializeField] private Dialogue dialogue;
     private int currentMessage = 0;
+
+    public bool isFinalDialogue = false;
 
     private CinemachineVirtualCamera currentCam;
     private void Awake() 
@@ -48,6 +51,11 @@ public class DialogueManager : MonoBehaviour
         {
             currentCam.Priority = 1;
             currentCam = null;
+        }
+
+        if(isFinalDialogue)
+        {
+            SceneManager.LoadScene("Credits");
         }
     }
     private void Update() 
