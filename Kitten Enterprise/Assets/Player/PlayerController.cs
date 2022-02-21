@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         if(isBig)
         {
-            currentSwapper.exitBigMode();
+            StartCoroutine(currentSwapper.exitBigMode());
         }
     }
 

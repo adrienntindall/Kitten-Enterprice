@@ -15,6 +15,8 @@ public class CameraController : MonoBehaviour
 
     private Vector2 mouseDelta;
 
+    private RaycastHit[] hits;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
