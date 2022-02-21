@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false;
     private float t = 0;
 
+    
+
     private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();

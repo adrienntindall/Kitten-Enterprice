@@ -20,6 +20,8 @@ public class PlayerJump : MonoBehaviour
     public float terminalVelocity = 1f;
     private Vector3 prevGravitationalVelocity;
 
+    private Vector3 respawn;
+
     /////CLOUD_EFFECT
     /////Public variables of particle prefabs
     public GameObject jumpParticle;
@@ -74,6 +76,11 @@ public class PlayerJump : MonoBehaviour
                 t = 0;
             }
         }
+        else if(downwards && transform.position.y < -20)
+        {
+            transform.position = respawn;
+        }
+
 
         PlayerMovement.playerRigidbody.AddForce(prevGravitationalVelocity, ForceMode.VelocityChange);
 
@@ -95,6 +102,7 @@ public class PlayerJump : MonoBehaviour
         GameObject particleInstance = GameObject.Instantiate(jumpParticle, transform.position, Quaternion.identity);
         particleInstance.SetActive(true);
         particleInstance.transform.SetParent(this.transform);
+        respawn = transform.position;
         jumpSound.Play();
     }
 

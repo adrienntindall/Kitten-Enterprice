@@ -71,6 +71,8 @@
     <Compile Include="Assets\Big Mode\BigModeSwapper.cs" />
     <Compile Include="Assets\UI\Scripts\MessageBox.cs" />
     <Compile Include="Assets\Scenes\SceneTransition.cs" />
+    <Compile Include="Assets\BadPath.cs" />
+    <Compile Include="Assets\UI\HelperScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
