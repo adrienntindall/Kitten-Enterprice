@@ -23,6 +23,9 @@ public class BigInputHandler : MonoBehaviour
     private Vector3 forwardsVector;
     private Vector3 rightVector;
 
+    private Quaternion r0;
+    private Vector3 pivotPoint;
+
     private void Awake()
     {
         allMoveables = FindObjectsOfType<MoveableObject>();
@@ -46,7 +49,7 @@ public class BigInputHandler : MonoBehaviour
                 grabbedObject.constraints = RigidbodyConstraints.FreezeAll;
                 grabbedObject.collisionDetectionMode = CollisionDetectionMode.Continuous;
                 grabbedObject.angularVelocity = Vector3.zero;
-                grabbedObject.maxAngularVelocity = Mathf.Infinity;
+                grabbedObject.maxAngularVelocity = 10f;
                 foreach (MoveableObject obj in allMoveables)
                 {
                     obj.objectRigidbody.isKinematic = false;
@@ -69,7 +72,14 @@ public class BigInputHandler : MonoBehaviour
             grabbedObject.isKinematic = false;
             movementPlane = grabbedObject.GetComponent<MoveableObject>().getMovementPlane();
             isRotational = grabbedObject.GetComponent<MoveableObject>().isRotational;
-            if (isRotational) grabbedObject.constraints = RigidbodyConstraints.FreezePosition;
+            if (isRotational)
+            {
+                Vector3 v0 = (movementPlane.ClosestPointOnPlane(hit.point) - movementPlane.ClosestPointOnPlane(grabbedObject.transform.position));
+                r0 = Quaternion.RotateTowards(grabbedObject.rotation, Quaternion.LookRotation(v0, movementPlane.normal), Mathf.Infinity);
+                grabbedObject.constraints = getRotationalConstraints();
+                movementPlane = new Plane(movementPlane.normal, movementPlane.distance);
+                pivotPoint = movementPlane.ClosestPointOnPlane(grabbedObject.transform.position);
+            }
             else grabbedObject.constraints = RigidbodyConstraints.FreezeRotation;
             grabbedObject.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
@@ -89,13 +99,13 @@ public class BigInputHandler : MonoBehaviour
 
         movementPlane.Raycast(mouseRay, out dist);
 
-        Vector3 movementVector = (mouseRay.GetPoint(dist) - movementPlane.ClosestPointOnPlane(grabbedObject.transform.position));
-
         if (isRotational)
         {
-            float angle = Vector3.Angle(grabbedObject.rotation * rightVector, movementVector) * Mathf.Deg2Rad;
+            Vector3 movementVector = (mouseRay.GetPoint(dist) - movementPlane.ClosestPointOnPlane(pivotPoint));
+            float angle = Vector3.Angle(grabbedObject.rotation*rightVector, movementVector) * Mathf.Deg2Rad;
 
-            angle *= Mathf.Sign(Vector3.Dot(Vector3.Cross(grabbedObject.rotation * rightVector, movementVector), movementPlane.normal));
+
+            angle *= Mathf.Sign(Vector3.Dot(Vector3.Cross(grabbedObject.rotation*rightVector, movementVector), movementPlane.normal));
 
             Vector3 angularDisplacement = movementPlane.normal * angle;
 
@@ -103,6 +113,7 @@ public class BigInputHandler : MonoBehaviour
         }
         else
         {
+            Vector3 movementVector = (mouseRay.GetPoint(dist) - movementPlane.ClosestPointOnPlane(grabbedObject.transform.position));
             Vector3 closePoint = transform.position;
 
             if (!movementVector.Equals(Vector3.zero) && grabbedCollider.Raycast(new Ray(grabbedCollider.transform.position + movementVector.normalized * 99, -movementVector), out hit, Mathf.Infinity))
@@ -141,5 +152,23 @@ public class BigInputHandler : MonoBehaviour
     public void setCurrentLaser(Laser l)
     {
         currentLaser = l;
+    }
+
+    private RigidbodyConstraints getRotationalConstraints()
+    {
+        RigidbodyConstraints constraints = RigidbodyConstraints.FreezePosition;
+        if(movementPlane.normal.x != 0)
+        {
+            constraints = constraints | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        }
+        else if(movementPlane.normal.y != 0)
+        {
+            constraints = constraints | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        }
+        else if(movementPlane.normal.z != 0)
+        {
+            constraints = constraints | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
+        }
+        return constraints;
     }
 }

@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerJump : MonoBehaviour
 {
+    public AudioSource jumpSound;
+    public AudioSource landSound;
+
     public static bool isJumping = false;
 
     private bool isJumpButtonHeld = false;
@@ -92,12 +95,14 @@ public class PlayerJump : MonoBehaviour
         GameObject particleInstance = GameObject.Instantiate(jumpParticle, transform.position, Quaternion.identity);
         particleInstance.SetActive(true);
         particleInstance.transform.SetParent(this.transform);
+        jumpSound.Play();
     }
 
     private void SpawnHitGroundParticle()
     {
         GameObject particleInstance = GameObject.Instantiate(hitGroundParticle, transform.position, transform.rotation);
         particleInstance.SetActive(true);
+        landSound.Play();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
