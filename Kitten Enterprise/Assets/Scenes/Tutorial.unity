@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: dc5e59c5f113411468054588cdbe03e1, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 573ce4137a91ba1499157e9fc1573cc9, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -7377,6 +7377,7 @@ MonoBehaviour:
   dialogueToTrigger: {fileID: 11400000, guid: b7d9f3ee42cfc134c9e83999eab48f84, type: 2}
   camera: {fileID: 1251260970}
   movemntToTrigger: {fileID: 1002556372}
+  isFinal: 0
 --- !u!4 &1167849687 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7054642772689658833, guid: f59d65f42955356488d486337f5bd0be, type: 3}
@@ -8546,7 +8547,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.5996939, y: 1}
+    m_SensorSize: {x: 1.5993209, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -8575,6 +8576,7 @@ MonoBehaviour:
   dialogueToTrigger: {fileID: 11400000, guid: 762e3fd61067ced45aedd39609313682, type: 2}
   camera: {fileID: 1843078370}
   movemntToTrigger: {fileID: 1060847168}
+  isFinal: 0
 --- !u!1001 &1254391603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10601,6 +10603,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0a27b20aa88fd7c4ab85247ef9acf287, type: 3}
   m_PrefabInstance: {fileID: 1439422454}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1452008228
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 526930052096793519, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 526930052096793519, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 526930052096793519, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 526930052096793519, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 526930052096793519, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 526930052096793519, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 526930052096793519, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 526930052096793519, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 526930052096793519, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 526930052096793519, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 526930052096793519, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808736253752215429, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_Name
+      value: MoreDecorationParentFinalForLevel1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808736253752215429, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5b0d019fc173f5d4da70e9944411c33a, type: 3}
 --- !u!4 &1452843452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1621859393880486722, guid: 7ae6cea4fd6d2514daa30c333b24a680, type: 3}
@@ -12247,7 +12310,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.5996939, y: 1}
+    m_SensorSize: {x: 1.5993209, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -12788,6 +12851,7 @@ MonoBehaviour:
   dialogueToTrigger: {fileID: 11400000, guid: 954310f419b29754a8321e89509f6a53, type: 2}
   camera: {fileID: 0}
   movemntToTrigger: {fileID: 0}
+  isFinal: 0
 --- !u!1 &1843078368
 GameObject:
   m_ObjectHideFlags: 0
@@ -12850,7 +12914,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.5996939, y: 1}
+    m_SensorSize: {x: 1.5993209, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -14927,6 +14991,7 @@ MonoBehaviour:
   dialogueToTrigger: {fileID: 11400000, guid: 718931b4970bd5b409c9f0956d40c7e8, type: 2}
   camera: {fileID: 1739062326}
   movemntToTrigger: {fileID: 0}
+  isFinal: 0
 --- !u!1001 &2130628755
 PrefabInstance:
   m_ObjectHideFlags: 0

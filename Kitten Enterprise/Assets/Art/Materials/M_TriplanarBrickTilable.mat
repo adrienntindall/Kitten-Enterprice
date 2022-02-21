@@ -32,11 +32,13 @@ Material:
     - _CoverageFalloff: 0.5
     - _DirtIntensity: 0.335
     - _DirtSmoothness: 0.713
+    - _GradientOpacity: 0.05
     - _Smoothness: 0.064
     - _TerrainSmoothness: 0.668
     - _Tiling: 0.35
     - __dirty: 0
     m_Colors:
+    - _GradientColor: {r: 0.47058827, g: 0.58431375, b: 0.627451, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _Tint: {r: 1, g: 1, b: 1, a: 0}
+    - _Tint: {r: 0.9702, g: 0.977305, b: 0.98, a: 0}
   m_BuildTextureStacks: []
